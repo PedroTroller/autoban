@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('add_banner') }}">Add a banner</a>
+    <ul>
+    {% for banner in banners %}
+        {{ dump(banner) }}
+    {% else %}
+        <li>No banner</li>
+    {% endfor %}
+    </ul>
+{% endblock body %}

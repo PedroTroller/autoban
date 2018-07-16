@@ -1,0 +1,12 @@
+version: "3.0"
+
+services:
+    db:
+        image: mysql:5.6
+        restart: on-failure
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=autoban
+        ports:
+            - 3306:3306
+        network_mode: "host"

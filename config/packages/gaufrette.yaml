@@ -1,0 +1,10 @@
+knp_gaufrette:
+  adapters:
+    storage:
+      aws_s3:
+        service_id: Aws\S3\S3Client
+        bucket_name: '%env(AMAZON_BUCKET)%'
+
+  filesystems:
+    storage:
+      adapter: storage
