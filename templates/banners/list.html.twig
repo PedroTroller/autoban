@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('add_banner') }}">Add a banner</a>
+  <div class="container">
+    <header class="navbar">
+      <section class="navbar-section">
+        <a class="btn btn-primary" href="{{ path('add_banner') }}">Add a banner</a>
+        <a class="btn btn-primary" href="{{ path('add_creator') }}">Add a creator</a>
+      </section>
+    </header>
     <ul>
     {% for banner in banners %}
         {{ dump(banner) }}
@@ -9,4 +15,5 @@
         <li>No banner</li>
     {% endfor %}
     </ul>
+  </div>
 {% endblock body %}

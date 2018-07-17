@@ -53,8 +53,6 @@ final class AddBanner extends Controller
             return $this->redirectToRoute('list_banners');
         }
 
-
-
         return $this->render('banners/create.html.twig', ['form' => $form->createView()]);
     }
 }
