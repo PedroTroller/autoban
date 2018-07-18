@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 
@@ -34,11 +33,6 @@ class Creator
     private $password;
 
     /**
-     * @var string
-     */
-    private $plainPassword;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $givenName;
@@ -53,14 +47,14 @@ class Creator
      */
     private $birthDate;
 
-    public static function createAnonymous(string $username, string $plainPassword): self
+    public static function createAnonymous(string $username, string $password): self
     {
-        return new self($username, $plainPassword);
+        return new self($username, $password);
     }
 
     public static function createComplete(
         string $username,
-        string $plainPassword,
+        string $password,
         string $email,
         string $givenName,
         string $familyName,
@@ -71,14 +65,14 @@ class Creator
 
     private function __construct(
         string $username,
-        string $plainPassword,
+        string $password,
         string $email = null,
         string $givenName = null,
         string $familyName = null,
         DateTimeImmutable $birthDate = null
     ) {
         $this->username = $username;
-        $this->plainPassword = $plainPassword;
+        $this->password = $password;
         $this->email = $email;
         $this->givenName = $givenName;
         $this->familyName = $familyName;
@@ -95,7 +89,7 @@ class Creator
         $this->username = $username;
     }
 
-    public function getEmail():? string
+    public function getEmail(): ? string
     {
         return $this->email;
     }
@@ -115,17 +109,7 @@ class Creator
         $this->password = $password;
     }
 
-    public function getPlainPassword():? string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(string $plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
-    public function getGivenName():? string
+    public function getGivenName(): ? string
     {
         return $this->givenName;
     }
@@ -135,7 +119,7 @@ class Creator
         $this->givenName = $givenName;
     }
 
-    public function getFamilyName():? string
+    public function getFamilyName(): ? string
     {
         return $this->familyName;
     }
@@ -145,7 +129,7 @@ class Creator
         $this->familyName = $familyName;
     }
 
-    public function getBirthDate():? DateTimeImmutable
+    public function getBirthDate(): ? DateTimeImmutable
     {
         return $this->birthDate;
     }

@@ -7,15 +7,11 @@ namespace App\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use App\Entity\Creator;
 use App\Form\DataMapper;
-use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
@@ -48,11 +44,13 @@ final class CreatorType extends AbstractType
                 ChoiceType::class,
                 [
                     'mapped' => false,
-                    'choices' => [ self::TYPE_ANONYMOUS => self::TYPE_ANONYMOUS, self::TYPE_COMPLETE => self::TYPE_COMPLETE ],
+                    'choices' => [self::TYPE_ANONYMOUS => self::TYPE_ANONYMOUS, self::TYPE_COMPLETE => self::TYPE_COMPLETE],
                 ]
             )
             ->add('email', EmailType::class, ['required' => false])
-            ->add('plainPassword', PasswordType::class)
+            ->add('password', EncodedPasswordType::class, [
+                'user_class' => Creator::class,
+            ])
             ->add('givenName', TextType::class, ['required' => false])
             ->add('familyName', TextType::class, ['required' => false])
             ->add('birthDate', BirthdayType::class, ['required' => false])
@@ -65,11 +63,11 @@ final class CreatorType extends AbstractType
             $form = $event->getForm();
             $data = $event->getData();
 
-            if ($data['type'] === self::TYPE_COMPLETE) {
+            if (self::TYPE_COMPLETE === $data['type']) {
                 $form
-                    ->add('givenName',   TextType::class,      ['required' => false, 'constraints' => new NotBlank()])
-                    ->add('familyName',  TextType::class,      ['required' => false, 'constraints' => new NotBlank()])
-                    ->add('birthDate',   BirthdayType::class,  ['required' => false, 'constraints' => new NotBlank()])
+                    ->add('givenName', TextType::class, ['required' => false, 'constraints' => new NotBlank()])
+                    ->add('familyName', TextType::class, ['required' => false, 'constraints' => new NotBlank()])
+                    ->add('birthDate', BirthdayType::class, ['required' => false, 'constraints' => new NotBlank()])
                 ;
 
                 return;

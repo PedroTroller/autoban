@@ -1,4 +1,6 @@
 var Encore = require('@symfony/webpack-encore');
+var glob = require("glob");
+
 
 Encore
     // the project directory where compiled assets will be stored
@@ -15,7 +17,7 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // uncomment to define the assets of the project
-    //.addEntry('js/app', './assets/js/app.js')
+    .addEntry('img', glob.sync('./assets/img/*'))
     //.addStyleEntry('css/app', './assets/css/app.scss')
 
     // uncomment if you use TypeScript

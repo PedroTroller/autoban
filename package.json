@@ -9,5 +9,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production"
+    },
+    "dependencies": {
+        "glob": "^7.1.2"
     }
 }

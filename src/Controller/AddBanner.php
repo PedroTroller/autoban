@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\Type\BannerType;
 use App\File\Uploader;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Annotation\Method;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 final class AddBanner extends Controller
 {
@@ -48,7 +46,7 @@ final class AddBanner extends Controller
 
             $file = $form->get('bannerImage')->getData();
 
-            $this->uploader->upload($form->getData(), $file);
+            // $this->uploader->upload($form->getData(), $file);
 
             return $this->redirectToRoute('list_banners');
         }

@@ -45,17 +45,17 @@ final class Creator implements DataMapperInterface
         switch ($forms['type']->getData()) {
             case CreatorType::TYPE_ANONYMOUS:
                 $data = Entity\Creator::createAnonymous(
-                    $this->hasher->hash($forms['email']->getData()?: ''),
-                    $forms['plainPassword']->getData()
+                    $this->hasher->hash($forms['email']->getData() ?: ''),
+                    $forms['password']->getData()
                 );
                 break;
             case CreatorType::TYPE_COMPLETE:
                 $data = Entity\Creator::createComplete(
-                    $this->hasher->hash($forms['email']->getData()?: ''),
-                    $forms['plainPassword']->getData()?: '',
-                    $forms['email']->getData()?: '',
-                    $forms['givenName']->getData()?: '',
-                    $forms['familyName']->getData()?: '',
+                    $this->hasher->hash($forms['email']->getData() ?: ''),
+                    $forms['password']->getData() ?: '',
+                    $forms['email']->getData() ?: '',
+                    $forms['givenName']->getData() ?: '',
+                    $forms['familyName']->getData() ?: '',
                     DateTimeImmutable::createFromMutable($forms['birthDate']->getData())
                 );
                 break;
