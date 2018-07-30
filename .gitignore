@@ -1,3 +1,4 @@
+features/dump
 
 ###> symfony/framework-bundle ###
 /.env
