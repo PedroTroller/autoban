@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Finder\Finder;
+
+$loader = require __DIR__.'/../vendor/autoload.php';
+
+$files = Finder::create()
+    ->in(sprintf('%s/../features', __DIR__))
+    ->name('*.feature')
+;
+
+foreach ($files as $file) {
+    $lines = file_get_contents($file->getPathname());
+
+    $lines = preg_replace('/^ *Scenario:/m', '  Scenario:', $lines);
+    $lines = preg_replace('/^ *Scenario Outline:/m', '  Scenario Outline:', $lines);
+    $lines = preg_replace('/^ *Given /m', '      Given ', $lines);
+    $lines = preg_replace('/^ *When /m', '       When ', $lines);
+    $lines = preg_replace('/^ *Then /m', '       Then ', $lines);
+    $lines = preg_replace('/^ *And /m', '        And ', $lines);
+    $lines = preg_replace('/^ *But /m', '        But ', $lines);
+    $lines = preg_replace('/^ *Examples:/m', '      Examples:', $lines);
+    $lines = preg_replace('/^ *\\| /m', '        | ', $lines);
+
+    $exports = [];
+
+    foreach (explode("\n", $lines) as $line) {
+        $trim = trim($line);
+
+        if (empty($trim)) {
+            continue;
+        }
+
+        $left = function (string $source, string $left): bool {
+            if (mb_strlen($left) > mb_strlen($source)) {
+                return false;
+            }
+
+            return mb_substr($source, 0, mb_strlen($left)) === $left;
+        };
+
+        switch (true) {
+            case ($left)($trim, 'Background:'):
+            case ($left)($trim, 'Scenario:'):
+            case ($left)($trim, 'Scenario Outline:'):
+            case ($left)($trim, 'Examples:'):
+                $exports[] = '';
+        }
+
+        $exports[] = $line;
+    }
+
+    $exports[] = '';
+
+    file_put_contents($file->getPathname(), implode("\n", $exports));
+}
