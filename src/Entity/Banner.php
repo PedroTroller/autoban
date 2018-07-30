@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use DateTimeImmutable;
 use DateTime;
+use DateTimeImmutable;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Banners")
@@ -58,9 +60,14 @@ class Banner
         $this->createdAt = new DateTimeImmutable();
     }
 
-    public function getId():? string
+    public function getId(): ? string
     {
         return $this->id;
+    }
+
+    public function getName(): ? string
+    {
+        return $this->name;
     }
 
     public function setName(string $name): void
@@ -68,12 +75,7 @@ class Banner
         $this->name = $name;
     }
 
-    public function getName():? string
-    {
-        return $this->name;
-    }
-
-    public function getClientName():? string
+    public function getClientName(): ? string
     {
         return $this->clientName;
     }
@@ -83,7 +85,7 @@ class Banner
         $this->clientName = $clientName;
     }
 
-    public function getRedirectUrl():? string
+    public function getRedirectUrl(): ? string
     {
         return $this->redirectUrl;
     }
@@ -98,7 +100,7 @@ class Banner
         return $this->createdAt;
     }
 
-    public function getCampainStartAt():? DateTime
+    public function getCampainStartAt(): ? DateTime
     {
         return $this->campainStartAt;
     }
@@ -108,7 +110,7 @@ class Banner
         $this->campainStartAt = $campainStartAt;
     }
 
-    public function getDesktopText():? string
+    public function getDesktopText(): ? string
     {
         return $this->desktopText;
     }
@@ -118,7 +120,7 @@ class Banner
         $this->desktopText = $desktopText;
     }
 
-    public function getMobileText():? string
+    public function getMobileText(): ? string
     {
         return $this->mobileText;
     }

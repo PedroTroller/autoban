@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Repository\Clients;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 final class ClientType extends AbstractType implements DataTransformerInterface
 {
@@ -21,21 +21,21 @@ final class ClientType extends AbstractType implements DataTransformerInterface
     private $clients;
 
     private const TYPE_EXISTING = 'existing';
-    private const TYPE_NEW = 'new';
+    private const TYPE_NEW      = 'new';
 
     public function __construct(Clients $clients)
     {
         $this->clients = $clients;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
                 'type',
                 ChoiceType::class,
                 [
-                    'mapped' => false,
+                    'mapped'  => false,
                     'choices' => ['new client' => self::TYPE_NEW, 'existing client' => self::TYPE_EXISTING],
                 ]
             )
@@ -55,7 +55,7 @@ final class ClientType extends AbstractType implements DataTransformerInterface
                 ]
             )
             ->addModelTransformer($this)
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
 
                 switch ($data['type']) {
@@ -71,7 +71,6 @@ final class ClientType extends AbstractType implements DataTransformerInterface
 
                 $event->setData($data);
             });
-        ;
     }
 
     public function transform($value)

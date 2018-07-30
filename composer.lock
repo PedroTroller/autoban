@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c9e794096a76b220a0d157de347b595",
+    "content-hash": "5998a97b451b290930f28396f98e0cbc",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -6335,6 +6335,46 @@
                 "php"
             ],
             "time": "2018-07-15T17:25:16+00:00"
+        },
+        {
+            "name": "pedrotroller/php-cs-custom-fixer",
+            "version": "v2.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PedroTroller/PhpCSFixer-Custom-Fixers.git",
+                "reference": "4e5951d5fe90c2f6ba2d113ff26f292f3489a11e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PedroTroller/PhpCSFixer-Custom-Fixers/zipball/4e5951d5fe90c2f6ba2d113ff26f292f3489a11e",
+                "reference": "4e5951d5fe90c2f6ba2d113ff26f292f3489a11e",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/php-cs-fixer": "~2.11",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "mustache/mustache": "^2.12",
+                "webmozart/assert": "^1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.10.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PedroTroller\\CS\\": "src/PedroTroller/CS/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP-CS-FIXER : my custom fixers",
+            "time": "2018-07-26T09:21:43+00:00"
         },
         {
             "name": "php-cs-fixer/diff",

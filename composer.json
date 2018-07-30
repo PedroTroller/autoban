@@ -32,6 +32,7 @@
         "behat/mink-extension": "^2.3",
         "behat/mink-goutte-driver": "^1.2",
         "friendsofphp/php-cs-fixer": "^2.12",
+        "pedrotroller/php-cs-custom-fixer": "^2.12",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "^4.1",
         "symfony/maker-bundle": "^1.0",

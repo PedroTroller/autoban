@@ -1,15 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
+use PedroTroller\CS\Fixer\ConfigurationBuilder;
+
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('vendor')
     ->exclude('var')
+    ->append([
+        '.php_cs.dist',
+    ])
 ;
 
 return PhpCsFixer\Config::create()
     ->setFinder($finder)
-    ->setRules([
-        '@Symfony' => true,
-        'array_syntax' => ['syntax' => 'short'],
-    ])
+    ->setRiskyAllowed(true)
+    ->setRules(array_merge(
+        ConfigurationBuilder::php(7.2),
+        ConfigurationBuilder::buildBasicConfiguration(),
+        [
+            '@Symfony'               => true,
+            '@PHP71Migration:risky'  => true,
+            'binary_operator_spaces' => [
+                'operators' => [
+                    '='  => 'align_single_space_minimal',
+                    '=>' => 'align_single_space_minimal',
+                ],
+            ],
+            'ordered_imports' => true,
+        ]
+    ))
+    ->registerCustomFixers(new PedroTroller\CS\Fixer\Fixers())
 ;

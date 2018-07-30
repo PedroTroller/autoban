@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Form\DataMapper;
 
-use Symfony\Component\Form\DataMapperInterface;
-use App\Form\Type\CreatorType;
 use App\Entity;
-use DateTimeImmutable;
+use App\Form\Type\CreatorType;
 use App\Username\Hasher;
+use DateTimeImmutable;
+use Symfony\Component\Form\DataMapperInterface;
 
 final class Creator implements DataMapperInterface
 {
@@ -25,7 +25,7 @@ final class Creator implements DataMapperInterface
     /**
      * @param \App\Entity\Creator $data
      */
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, $forms): void
     {
         $forms = iterator_to_array($forms);
 
@@ -34,7 +34,7 @@ final class Creator implements DataMapperInterface
         }
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData($forms, &$data): void
     {
         $forms = iterator_to_array($forms);
 

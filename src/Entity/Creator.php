@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -47,36 +49,20 @@ class Creator
      */
     private $birthDate;
 
-    public static function createAnonymous(string $username, string $password): self
-    {
-        return new self($username, $password);
-    }
-
-    public static function createComplete(
-        string $username,
-        string $password,
-        string $email,
-        string $givenName,
-        string $familyName,
-        DateTimeImmutable $birthDate
-    ) {
-        return new self(...func_get_args());
-    }
-
     private function __construct(
         string $username,
         string $password,
-        string $email = null,
-        string $givenName = null,
-        string $familyName = null,
+        string $email                = null,
+        string $givenName            = null,
+        string $familyName           = null,
         DateTimeImmutable $birthDate = null
     ) {
-        $this->username = $username;
-        $this->password = $password;
-        $this->email = $email;
-        $this->givenName = $givenName;
+        $this->username   = $username;
+        $this->password   = $password;
+        $this->email      = $email;
+        $this->givenName  = $givenName;
         $this->familyName = $familyName;
-        $this->birthDate = $birthDate;
+        $this->birthDate  = $birthDate;
     }
 
     public function getUsername(): string
@@ -137,5 +123,21 @@ class Creator
     public function setBirthDate(DateTimeImmutable $birthDate): void
     {
         $this->birthDate = $birthDate;
+    }
+
+    public static function createAnonymous(string $username, string $password): self
+    {
+        return new self($username, $password);
+    }
+
+    public static function createComplete(
+        string $username,
+        string $password,
+        string $email,
+        string $givenName,
+        string $familyName,
+        DateTimeImmutable $birthDate
+    ) {
+        return new self(...func_get_args());
     }
 }

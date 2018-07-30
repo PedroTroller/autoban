@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\Creator;
 use App\Form\DataMapper;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class CreatorType extends AbstractType
 {
     public const TYPE_ANONYMOUS = 'anonymous';
-    public const TYPE_COMPLETE = 'complete';
+    public const TYPE_COMPLETE  = 'complete';
 
     /**
      * @var DataMapper\CreatorType
@@ -36,14 +36,14 @@ final class CreatorType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
                 'type',
                 ChoiceType::class,
                 [
-                    'mapped' => false,
+                    'mapped'  => false,
                     'choices' => [self::TYPE_ANONYMOUS => self::TYPE_ANONYMOUS, self::TYPE_COMPLETE => self::TYPE_COMPLETE],
                 ]
             )
@@ -58,7 +58,7 @@ final class CreatorType extends AbstractType
 
         $builder->setDataMapper($this->dataMapper);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
             $useless = ['givenName', 'familyName', 'birthDate'];
             $form = $event->getForm();
             $data = $event->getData();
@@ -85,7 +85,7 @@ final class CreatorType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefault('data_class', Creator::class)

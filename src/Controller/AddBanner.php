@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\File\Uploader;
+use App\Form\Type\BannerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Form\Type\BannerType;
-use App\File\Uploader;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class AddBanner extends Controller
@@ -42,7 +42,7 @@ final class AddBanner extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->persist($form->getData());
-            //$this->getDoctrine()->getManager()->flush();
+            $this->getDoctrine()->getManager()->flush();
 
             $file = $form->get('bannerImage')->getData();
 

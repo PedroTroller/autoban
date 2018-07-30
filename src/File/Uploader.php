@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use Gaufrette\FilesystemInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Banner;
+use Gaufrette\FilesystemInterface;
 use Gaufrette\StreamWrapper;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class Uploader
 {
@@ -21,7 +21,7 @@ final class Uploader
         $this->filesystem = $filesystem;
     }
 
-    public function upload(Banner $banner, UploadedFile $file)
+    public function upload(Banner $banner, UploadedFile $file): void
     {
         $map = StreamWrapper::getFilesystemMap();
         $map->set('storage', $this->filesystem);

@@ -155,6 +155,9 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+    "pedrotroller/php-cs-custom-fixer": {
+        "version": "v2.12.0"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },

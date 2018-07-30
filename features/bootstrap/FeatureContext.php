@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
 
@@ -12,7 +14,7 @@ class FeatureContext extends RawMinkContext implements Context
     /**
      * @BeforeScenario
      */
-    public function resetDatabase()
+    public function resetDatabase(): void
     {
         exec('bin/console doctrine:schema:drop --force');
         exec('bin/console doctrine:schema:create');
@@ -21,10 +23,10 @@ class FeatureContext extends RawMinkContext implements Context
     /**
      * @When dump last response
      */
-    public function dumpLastResponse()
+    public function dumpLastResponse(): void
     {
         $content = $this->getMink()->getSession()->getPage()->getContent();
-        $folder = sprintf('%s/../dump', __DIR__);
+        $folder  = sprintf('%s/../dump', __DIR__);
 
         if (false === is_dir($folder)) {
             mkdir($folder);
@@ -36,7 +38,7 @@ class FeatureContext extends RawMinkContext implements Context
     /**
      * @Then I should see the banner :name
      */
-    public function iShouldSeeTheBanner(string $name)
+    public function iShouldSeeTheBanner(string $name): void
     {
         $labels = $this->getMink()->getSession()->getPage()->findAll('css', 'article label');
 
