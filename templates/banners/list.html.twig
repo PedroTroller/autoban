@@ -8,12 +8,12 @@
         <a class="btn btn-primary" href="{{ path('add_creator') }}">Add a creator</a>
       </section>
     </header>
-    <ul>
     {% for banner in banners %}
-        {{ dump(banner) }}
+        <article>
+            <label>{{ banner.name }}</label>
+        </article>
     {% else %}
-        <li>No banner</li>
+        <b>No banner</b>
     {% endfor %}
-    </ul>
   </div>
 {% endblock body %}

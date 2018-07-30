@@ -20,9 +20,6 @@
     "behat/mink-goutte-driver": {
         "version": "v1.2.1"
     },
-    "behat/mink-selenium2-driver": {
-        "version": "v1.3.1"
-    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -136,9 +133,6 @@
     },
     "guzzlehttp/psr7": {
         "version": "1.4.2"
-    },
-    "instaclick/php-webdriver": {
-        "version": "1.4.5"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"

@@ -42,7 +42,7 @@ final class AddBanner extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->persist($form->getData());
-            $this->getDoctrine()->getManager()->flush();
+            //$this->getDoctrine()->getManager()->flush();
 
             $file = $form->get('bannerImage')->getData();
 

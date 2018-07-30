@@ -1,67 +1,51 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
+use Behat\MinkExtension\Context\RawMinkContext;
 
-class FeatureContext implements Context
+class FeatureContext extends RawMinkContext implements Context
 {
     public function __construct()
     {
     }
 
     /**
-     * @Given I am on the homepage
+     * @BeforeScenario
      */
-    public function iAmOnTheHomepage()
+    public function resetDatabase()
     {
-        throw new PendingException();
+        exec('bin/console doctrine:schema:drop --force');
+        exec('bin/console doctrine:schema:create');
     }
 
     /**
-     * @Given I click on :arg1
+     * @When dump last response
      */
-    public function iClickOn($arg1)
+    public function dumpLastResponse()
     {
-        throw new PendingException();
+        $content = $this->getMink()->getSession()->getPage()->getContent();
+        $folder = sprintf('%s/../dump', __DIR__);
+
+        if (false === is_dir($folder)) {
+            mkdir($folder);
+        }
+
+        file_put_contents(sprintf('%s/%s.html', $folder, uniqid()), $content);
     }
 
     /**
-     * @When I fill in :arg1 with :arg2
+     * @Then I should see the banner :name
      */
-    public function iFillInWith($arg1, $arg2)
+    public function iShouldSeeTheBanner(string $name)
     {
-        throw new PendingException();
-    }
+        $labels = $this->getMink()->getSession()->getPage()->findAll('css', 'article label');
 
-    /**
-     * @When I attach an image to :arg1
-     */
-    public function iAttachAnImageTo($arg1)
-    {
-        throw new PendingException();
-    }
+        foreach ($labels as $label) {
+            if ($name === $label->getText()) {
+                return;
+            }
+        }
 
-    /**
-     * @When I press :arg1
-     */
-    public function iPress($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should be on the homepage
-     */
-    public function iShouldBeOnTheHomepage()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should see the banner :arg1
-     */
-    public function iShouldSeeTheBanner($arg1)
-    {
-        throw new PendingException();
+        throw new \Exception(sprintf('Banner "%s" not found.', $name));
     }
 }
